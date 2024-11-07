@@ -13,16 +13,16 @@ class Node:
         return self._data
     
     def setNextNode(self, value):
-        self._next = value
+        self._next._data = value
 
     def getNextNode(self):
-        return self._next
+        return self._next._data
     
     def setPreviousNode(self, value):
-        self._previous = value
+        self._previous._data = value
 
     def getPreviousNode(self):
-        return self._previous
+        return self._previous._data
     
 def main():
     # creating instances
@@ -32,12 +32,20 @@ def main():
     node4 = Node(40)
 
     # creating bidirectional linked list
-    node1._next = node2._data
-    node2._previous = node1._data
-    node2._next = node3._data
-    node3._previous = node2._data
-    node3._next = node4._data
-    node4._previous = node3._data
+    node1._next = node2
+    node2._previous = node1
+    node2._next = node3
+    node3._previous = node2
+    node3._next = node4
+    node4._previous = node3
+
+    # printing list before altering data
+    current = node1
+    while current:
+        print(current._data, end=" -> ")
+        current = current._next
+    print("None")
+    print()
 
     # demonstrating example of setting/getting value methods working
     print(node2.getNodeValue())
@@ -45,10 +53,25 @@ def main():
     print(node2.getNodeValue())
     print()
 
-    # demonstarting example of node management methods working
+    # demonstrating example of set/get-previous methods working
     print(node2.getPreviousNode())
-    print(node2.setPreviousNode(45))
-    node1._data = node2._previous
+    node2.setPreviousNode(45)
     print(node1._data)
+    print()
+
+    # demonstrating example of set/get-next methods working
+    print(node4._data)
+    node3.setNextNode(60)
+    print(node3.getNextNode())
+    node4.setNodeValue(90)
+    print(node3.getNextNode())
+    print()
+
+    # printing list after altering data
+    current = node1
+    while current != None:
+        print(current._data, end=" -> ")
+        current = current._next
+    print("None")
 
 main()
